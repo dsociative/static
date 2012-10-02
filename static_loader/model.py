@@ -7,6 +7,9 @@ class StaticModel(object):
         self.data = data
         self.process(data)
 
+    def __contains__(self, name):
+        return name in self.data
+
     def assign(self, key, value):
         setattr(self, key, value)
 

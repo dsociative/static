@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from unittest import TestCase
-from static_loader.static import Static
+from static_loader.tests.base_case import BaseCase
 
 
-class BaseStaticTest(TestCase):
-
-    def setUp(self):
-        self.static = Static('data')
-
-
-class StaticTest(BaseStaticTest):
+class StaticTest(BaseCase):
 
     def test_collections(self):
         self.assertEqual(self.static.collections(),
@@ -24,7 +17,7 @@ class StaticTest(BaseStaticTest):
                          'single')
 
 
-class StaticFillTest(BaseStaticTest):
+class StaticFillTest(BaseCase):
 
     def setUp(self):
         super(StaticFillTest, self).setUp()
