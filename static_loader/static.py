@@ -28,7 +28,9 @@ class Static(object):
 
     def files(self, collection):
         path = self.join(collection)
-        return os.listdir(path)
+        for filename in os.listdir(path):
+            if filename.endswith('.json'):
+                yield filename
 
     def split_id(self, file):
         name = os.path.splitext(file)[0]
