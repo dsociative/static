@@ -14,6 +14,9 @@ class ModelTest(BaseCase):
         self.assertEqual(self.model.id, 'single')
         self.assertEqual(self.model.data.get('id'), None)
 
+    def test_get(self):
+        self.assertEqual(self.model.get('field'), 'this is test field')
+
     def test_contains(self):
         self.assertTrue('field' in self.model)
 

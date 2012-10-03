@@ -8,6 +8,8 @@ class StaticModel(object):
         self.data = data
         self.process(data)
 
+        self.get = self.data.get
+
     def __contains__(self, name):
         return name in self.data
 
