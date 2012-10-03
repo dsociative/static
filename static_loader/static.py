@@ -49,7 +49,7 @@ class Static(object):
             trace()
             raise Exception('Error in static file %s' % path)
 
-        return assign_model(self.split_id(file), data)
+        return assign_model(data, id=self.split_id(file))
 
     def models(self, collection):
         result = {}

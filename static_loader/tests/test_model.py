@@ -16,4 +16,11 @@ class ModelTest(BaseCase):
 
     def test_contains(self):
         self.assertTrue('field' in self.model)
+
+    def test_iteration(self):
+        fields = []
+        for field, value in self.model:
+            fields.append(field)
+
+        self.assertEqual(fields, ['field'])
         

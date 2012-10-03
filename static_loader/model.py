@@ -3,13 +3,16 @@
 
 class StaticModel(object):
 
-    def __init__(self, id, data):
+    def __init__(self, data, id=None):
         self.id = id
         self.data = data
         self.process(data)
 
     def __contains__(self, name):
         return name in self.data
+
+    def __iter__(self):
+        return self.data.iteritems()
 
     def assign(self, key, value):
         setattr(self, key, value)
