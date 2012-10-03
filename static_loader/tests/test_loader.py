@@ -6,7 +6,7 @@ from static_loader.tests.base_case import BaseCase
 class StaticTest(BaseCase):
 
     def test_collections(self):
-        self.assertEqual(self.static.collections(),
+        self.assertEqual(list(self.static.collections()),
                          ['user', 'tables'])
 
     def test_split_id_digit(self):

@@ -21,7 +21,9 @@ class Static(object):
             setattr(self, collection, self.models(collection))
 
     def collections(self):
-        return os.listdir(self.path)
+        for d in os.listdir(self.path):
+            if not d.startswith('.'):
+                yield d
 
     def join(self, *items):
         return os.path.join(self.path, *items)
