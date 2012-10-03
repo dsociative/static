@@ -1,4 +1,5 @@
 # coding: utf8
+import json
 import os
 import sys
 import traceback
@@ -46,7 +47,7 @@ class Static(object):
         path = self.join(collection, file)
 
         try:
-            data = eval(open(path).read())
+            data = json.loads(open(path).read())
         except:
             trace()
             raise Exception('Error in static file %s' % path)
