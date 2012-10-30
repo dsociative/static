@@ -15,11 +15,14 @@ class ModelTest(BaseCase):
 
     def test_id(self):
         self.assertEqual(self.model.id, 'single')
-        self.assertEqual(self.model.data.get('id'), None)
+        self.assertEqual(self.model.get('id'), None)
 
     def test_get(self):
         self.assertEqual(self.model.get('field'), 'this is test field')
         self.assertEqual(self.model.field, 'this is test field')
+
+    def test_dict(self):
+        self.assertEqual(self.model, {'field': 'this is test field'})
 
     def test_contains(self):
         self.assertTrue('field' in self.model)
@@ -40,4 +43,4 @@ class ModelIntKeyTest(BaseCase):
         self.model = self.static.tables.get(2)
 
     def test_key(self):
-        self.assertEqual(self.model.data, {1: 1, 2: 'something', 3: 'else'})
+        self.assertEqual(self.model, {1: 1, 2: 'something', 3: 'else'})

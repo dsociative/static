@@ -1,19 +1,14 @@
 # coding: utf8
 
 
-class StaticModel(object):
+class StaticModel(dict):
 
     def __init__(self, data, id=None):
         self.id = id
-        self.data = self.process(data)
-        self.store = {}
-        self.get = self.data.get
-
-    def __contains__(self, name):
-        return name in self.data
+        super(StaticModel, self).__init__(self.process(data))
 
     def __iter__(self):
-        return self.data.iteritems()
+        return self.iteritems()
 
     def assign(self, key, value):
         if type(key) in (str, unicode):
