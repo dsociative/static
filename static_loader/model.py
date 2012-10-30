@@ -5,9 +5,8 @@ class StaticModel(object):
 
     def __init__(self, data, id=None):
         self.id = id
-        self.data = data
-        self.process(data)
-
+        self.data = self.process(data)
+        self.store = {}
         self.get = self.data.get
 
     def __contains__(self, name):
@@ -17,14 +16,22 @@ class StaticModel(object):
         return self.data.iteritems()
 
     def assign(self, key, value):
-        setattr(self, key, value)
+        if type(key) in (str, unicode):
+            setattr(self, key, value)
+
+    def process_key(self, key):
+        return key if not key.isdigit() else int(key)
 
     def process_item(self, key, value):
-        return self.assign(key, self.process_value(value))
+        return self.process_key(key), self.process_value(value)
 
     def process(self, data):
+        rt = {}
         for key, value in data.iteritems():
-            self.process_item(key, value)
+            key, value = self.process_item(key, value)
+            rt[key] = value
+            self.assign(key, value)
+        return rt
 
     def process_value(self, value):
         if type(value) is dict:
