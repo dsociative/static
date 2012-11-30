@@ -22,7 +22,7 @@ class StaticModel(dict):
         if key.isdigit():
             return int(key)
         elif islist(key):
-            return map(self.process_key, key.split(','))
+            return tuple(map(self.process_key, key.split(',')))
         else:
             return key
 
