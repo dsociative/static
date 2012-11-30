@@ -1,6 +1,10 @@
 # coding: utf8
 
 
+def islist(key):
+    return ',' in key
+
+
 class StaticModel(dict):
 
     def __init__(self, data, id=None):
@@ -15,7 +19,12 @@ class StaticModel(dict):
             setattr(self, key, value)
 
     def process_key(self, key):
-        return key if not key.isdigit() else int(key)
+        if key.isdigit():
+            return int(key)
+        elif islist(key):
+            return map(self.process_key, key.split(','))
+        else:
+            return key
 
     def process_item(self, key, value):
         return self.process_key(key), self.process_value(value)

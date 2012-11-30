@@ -13,6 +13,11 @@ class ModelTest(BaseCase):
     def test_process_key(self):
         self.assertEqual(self.model.process_key('1'), 1)
 
+    def test_process_key_range(self):
+        self.assertEqual(self.model.process_key('1,2'), [1, 2])
+        self.assertEqual(self.model.process_key('1,2,Name'),
+                         [1, 2, 'Name'])
+
     def test_id(self):
         self.assertEqual(self.model.id, 'single')
         self.assertEqual(self.model.get('id'), None)
