@@ -15,8 +15,7 @@ class StaticModel(dict):
         return self.iteritems()
 
     def assign(self, key, value):
-        if type(key) in (str, unicode):
-            setattr(self, key, value)
+        self.__dict__[key] = value
 
     def process_key(self, key):
         if key.isdigit():
@@ -30,12 +29,10 @@ class StaticModel(dict):
         return self.process_key(key), self.process_value(value)
 
     def process(self, data):
-        rt = {}
         for key, value in data.iteritems():
             key, value = self.process_item(key, value)
-            rt[key] = value
             self.assign(key, value)
-        return rt
+            yield key, value
 
     def process_value(self, value):
         if type(value) is dict:
