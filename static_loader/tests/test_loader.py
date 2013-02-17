@@ -6,7 +6,7 @@ from static_loader.tests.base_case import BaseCase
 
 class StaticTest(BaseCase):
     def test_collections(self):
-        self.eq(list(self.static.collections()), ['tables', 'user'])
+        self.items_eq(self.static.collections(), ['user', 'tables'])
 
     def test_split_id_digit(self):
         self.eq(self.static.split_id('1.json'), 1)
