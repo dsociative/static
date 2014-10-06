@@ -4,6 +4,8 @@ import os
 import sys
 import traceback
 
+from sh import git
+
 from static_loader.model import StaticModel
 
 
@@ -16,6 +18,11 @@ class Loader(object):
     def __init__(self, path, mapper={}):
         self.path = os.path.abspath(path)
         self.mapper = mapper
+
+    def version(self):
+        return git.bake('--no-pager', _cwd=self.path).log(
+            '--pretty=format:%h', '-n1'
+        )
 
     def items(self):
         for d in os.listdir(self.path):
@@ -45,10 +52,12 @@ class Loader(object):
             yield item, dict(self.load_dir(item))
 
     def fill(self):
-        return StaticModel(dict(self.fill_gen()))
+        d = dict(self.fill_gen())
+        d['version'] = self.version()
+        return StaticModel(d)
 
     def join(self, *items):
         return os.path.join(self.path, *items)
 
-    def split_id(self, file):
-        return os.path.splitext(file)[0]
+    def split_id(self, filename):
+        return os.path.splitext(filename)[0]

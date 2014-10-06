@@ -24,6 +24,12 @@ class StaticFillTest(BaseCase):
         super(StaticFillTest, self).setUp()
         self.static = self.loader.fill()
 
+    def test_version(self):
+        self.eq(self.loader.version(), '43171ec')
+
+    def test_inject_version_to_root_model(self):
+        self.eq(self.static.version, '43171ec')
+
     def test_items(self):
         self.items_eq(self.loader.items(), ['tables', 'user'])
 
