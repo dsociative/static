@@ -1,4 +1,5 @@
-# coding: utf8
+# -*- coding: utf-8 -*-
+
 import json
 
 
@@ -13,7 +14,7 @@ class StaticModel(dict):
         super(StaticModel, self).__init__(self.process(data))
 
     def json(self):
-        return json.dumps(self)
+        return json.dumps(self, ensure_ascii=False)
 
     def assign(self, key, value):
         self.__dict__[key] = value

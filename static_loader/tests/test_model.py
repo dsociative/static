@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import json
 from static_loader.model import StaticModel
 
@@ -24,8 +25,9 @@ class ModelTest(BaseCase):
         self.isinstance(model, StaticModel)
 
     def test_json(self):
-        self.eq(self.model.json(), json.dumps(self.model))
-        self.eq(self.static.json(), json.dumps(self.static))
+        self.static['name'] = u'Вася'
+        self.eq(self.model.json(), json.dumps(self.model, ensure_ascii=False))
+        self.eq(self.static.json(), json.dumps(self.static, ensure_ascii=False))
 
     def test_id(self):
         self.eq(self.model.id, 'single')
