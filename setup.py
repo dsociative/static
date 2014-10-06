@@ -13,5 +13,6 @@ setup(name='static loader',
       ],
       install_requires=[
           'ztest'
-      ]
+      ],
+      version='2.0'
 )

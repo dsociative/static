@@ -26,7 +26,7 @@ class StaticModel(dict):
             return key
 
     def process_item(self, key, value):
-        return self.process_key(key), self.process_value(value)
+        return self.process_key(key), self.process_value(key, value)
 
     def process(self, data):
         for key, value in data.iteritems():
@@ -34,13 +34,14 @@ class StaticModel(dict):
             self.assign(key, value)
             yield key, value
 
-    def process_value(self, value):
+    def process_list(self, key, value):
+        for item in value:
+            yield self.process_value(key, item)
+
+    def process_value(self, key, value):
         if type(value) is dict:
-            return StaticModel(value)
+            return StaticModel(value, key)
         elif type(value) is list:
-            rt = []
-            for item in value:
-                rt.append(self.process_value(item))
-            return rt
+            return list(self.process_list(key, value))
         else:
             return value

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from static_loader.model import StaticModel
 
 from static_loader.tests.base_case import BaseCase
 
@@ -6,7 +7,7 @@ from static_loader.tests.base_case import BaseCase
 class ModelTest(BaseCase):
     def setUp(self):
         super(ModelTest, self).setUp()
-        self.static.fill()
+        self.static = self.loader.fill()
         self.model = self.static.user.get('single')
 
     def test_process_key(self):
@@ -15,6 +16,11 @@ class ModelTest(BaseCase):
     def test_process_key_range(self):
         self.eq(self.model.process_key('1,2'), (1, 2))
         self.eq(self.model.process_key('1,2,Name'), (1, 2, 'Name'))
+
+    def test_process_value_dict(self):
+        model = self.model.process_value('new_key', {'1': '2'})
+        self.eq(model.id, 'new_key')
+        self.isinstance(model, StaticModel)
 
     def test_id(self):
         self.eq(self.model.id, 'single')
@@ -37,12 +43,6 @@ class ModelTest(BaseCase):
 
         self.eq(fields, ['field'])
 
-
-class ModelIntKeyTest(BaseCase):
-    def setUp(self):
-        super(ModelIntKeyTest, self).setUp()
-        self.static.fill()
-        self.model = self.static.tables.get(2)
-
     def test_key(self):
+        self.model = self.static.tables.get(2)
         self.eq(self.model, {1: 1, 2: 'something', 3: 'else'})
