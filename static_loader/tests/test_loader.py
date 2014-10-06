@@ -29,6 +29,7 @@ class StaticFillTest(BaseCase):
 
     def test_inject_version_to_root_model(self):
         self.eq(self.static.version, '43171ec')
+        self.isinstance(self.static.version, str)
 
     def test_items(self):
         self.items_eq(self.loader.items(), ['tables', 'user'])

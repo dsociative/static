@@ -1,4 +1,5 @@
 # coding: utf8
+import json
 
 
 def islist(key):
@@ -11,8 +12,8 @@ class StaticModel(dict):
         self.id = id
         super(StaticModel, self).__init__(self.process(data))
 
-    def __iter__(self):
-        return self.iteritems()
+    def json(self):
+        return json.dumps(self)
 
     def assign(self, key, value):
         self.__dict__[key] = value

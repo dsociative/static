@@ -20,8 +20,10 @@ class Loader(object):
         self.mapper = mapper
 
     def version(self):
-        return git.bake('--no-pager', _cwd=self.path).log(
-            '--pretty=format:%h', '-n1'
+        return str(
+            git.bake('--no-pager', _cwd=self.path).log(
+                '--pretty=format:%h', '-n1'
+            )
         )
 
     def items(self):

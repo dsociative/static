@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from static_loader.model import StaticModel
 
 from static_loader.tests.base_case import BaseCase
@@ -21,6 +22,10 @@ class ModelTest(BaseCase):
         model = self.model.process_value('new_key', {'1': '2'})
         self.eq(model.id, 'new_key')
         self.isinstance(model, StaticModel)
+
+    def test_json(self):
+        self.eq(self.model.json(), json.dumps(self.model))
+        self.eq(self.static.json(), json.dumps(self.static))
 
     def test_id(self):
         self.eq(self.model.id, 'single')
